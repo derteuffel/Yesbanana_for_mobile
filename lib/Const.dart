@@ -1,7 +1,7 @@
 class Const
 {
 
-  static final SERVER_URL = "http://192.168.8.102:8000";
+  static final SERVER_URL = "http://192.168.8.101:8000";
   static final SERVER_URL_CONNECTION = "$SERVER_URL/mobile/login";
   static final SERVER_URL_REGISTER = "$SERVER_URL/mobile/register";
   static final SERVER_URL_BOURSE = "$SERVER_URL/mobile/bourses";
