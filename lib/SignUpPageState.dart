@@ -43,7 +43,7 @@ class SignUpPageState extends State<SignUpPage>{
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       body : new Stack(
         fit : StackFit.expand,
         children: <Widget>[
@@ -58,9 +58,8 @@ class SignUpPageState extends State<SignUpPage>{
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: new Center(
+              child: ListView(
               children: <Widget>[
                 new Text(
                   "YesBanana",
@@ -216,7 +215,7 @@ class SignUpPageState extends State<SignUpPage>{
                 ),
               ],
             ),
-          )
+          ))
         ],
       ),
 
