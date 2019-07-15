@@ -35,6 +35,20 @@ class HomepageState extends State<Homepage> {
         title: Text(_appBar[index],
         ),
         centerTitle: true,
+        actions: <Widget>[
+          new IconButton(icon: Icon(Icons.search),
+            color: Colors.white,
+          onPressed: (){
+
+          },
+          ),
+          new IconButton(icon: Icon(Icons.more_vert),
+            onPressed: () {
+            showMenu(context: context,);
+            },
+            color: Colors.white,
+          ),
+        ],
       ),
       body: getPages(index,context),
       bottomNavigationBar: MyBottomNavBar(
