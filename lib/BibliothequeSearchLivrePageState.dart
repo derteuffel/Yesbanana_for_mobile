@@ -3,19 +3,52 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:mr_botton_navigation/BibliothequeSearchLivrePage.dart';
 import 'package:mr_botton_navigation/Const.dart';
 import 'package:mr_botton_navigation/HttpRequest.dart';
-var _list=[];
+var _list=new List();
+String _searchText="";
+var _filteredElements=new List();
 class BibliothequeSearchLivrePageState extends State<BibliothequeSearchLivrePage>{
   int index = 0;
   var _livreUrl= Const.SERVER_URL_LIVRE;
+  Widget _appBarText= new Text("Bibliotheque");
+  var titles=new List();
+
+
+
+  // controls the text label we use as a search bar
+  final TextEditingController _filter = new TextEditingController();
+  final dio = new Dio(); // for http requests
+
+
+  Icon search=new Icon(Icons.search);
+
+
+  BibliothequeSearchLivrePageState(){
+
+    _filter.addListener((){
+      if(_filter.text.isEmpty){
+        setState(() {
+          _searchText="";
+          _filteredElements=_list;
+        });
+      }else{
+        setState(() {
+          _searchText=_filter.text;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: Text('Rechercher un livre'),
+        centerTitle: true,
+        title: _appBarText,
+        leading: new IconButton(icon: search, onPressed: _searchPressed),
       ),
       body: BibliothequeSearchLivreBody(),
     );
@@ -29,6 +62,7 @@ class BibliothequeSearchLivrePageState extends State<BibliothequeSearchLivrePage
     init();
   }
 
+
   void init() {
     HttpRequest.getJson(_livreUrl)
         .then((response) {
@@ -36,6 +70,7 @@ class BibliothequeSearchLivrePageState extends State<BibliothequeSearchLivrePage
       print(response.body);
       setState((){
         _list = json.decode(response.body);
+        _filteredElements=_list;
       });
     }).catchError((error) {
       print("Error");
@@ -45,32 +80,49 @@ class BibliothequeSearchLivrePageState extends State<BibliothequeSearchLivrePage
     });
   }
 
+  void _searchPressed() {
+    setState(() {
+      if (this.search.icon == Icons.search) {
+        this.search = new Icon(Icons.close);
+        this._appBarText = new TextField(
+          controller: _filter,
+          decoration: new InputDecoration(
+              prefixIcon: new Icon(Icons.search),
+              hintText: 'Search...'
+          ),
+        );
+      } else {
+        this.search = new Icon(Icons.search);
+        this._appBarText = new Text('Bibliotheque');
+        _filteredElements = _list;
+        _filter.clear();
+      }
+    });
+  }
 
 }
+
+
 //This represents the Body. We show GridView in Body
 class BibliothequeSearchLivreBody extends StatelessWidget {
 
   //Create and Return GridView filled with our data
   Widget createGridView(BuildContext context) {
-    var spacecrafts = [
-        "James Web",
-        "Enterprise",
-        "Hubble",
-        "Kepler",
-        "Juno",
-        "Casini",
-        "Columbia",
-        "Challenger",
-        "Huygens",
-        "Galileo",
-        "Apollo",
-        "Spitzer",
-        "WMAP",
-        "Swift",
-        "Atlantis"
-      ];
+    if(!(_searchText.isEmpty)){
+      print(_filteredElements);
+      print("je suis la");
+      List tempList=new List();
+      for(int i= 0; i<_filteredElements.length; i++){
+        if(_filteredElements[i]['title'].toString().toLowerCase().contains(_searchText.toLowerCase())){
+          tempList.add(_filteredElements[i]);
+        }
+      }
+      _filteredElements=tempList;
+    }else{
+      _filteredElements=_list;
+    }
       return new GridView.builder(
-        itemCount: _list.length,
+        itemCount: _filteredElements.length,
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
@@ -80,7 +132,7 @@ class BibliothequeSearchLivreBody extends StatelessWidget {
                 Container(
                     padding: const EdgeInsets.all(10),
                     child: Image.network(
-                        _list[index]["couverture"]==null?"https://raw.githubusercontent.com/flutter/website/master/examples/layout/lakes/step5/images/lake.jpg" : Const.SERVER_URL+ _list[index]["couverture"],
+                        _filteredElements[index]["couverture"]==null?"https://raw.githubusercontent.com/flutter/website/master/examples/layout/lakes/step5/images/lake.jpg" : Const.SERVER_URL+ _filteredElements[index]["couverture"],
                         fit: BoxFit.cover
                     )
                 ),
@@ -99,9 +151,9 @@ class BibliothequeSearchLivreBody extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              new Text(_list[index]["title"]==null?"Non définie" : _list[index]["title"],
+                              new Text(_filteredElements[index]["title"]==null?"Non définie" : _filteredElements[index]["title"],
                                   style: new TextStyle(fontSize: 22, color: Colors.white)),
-                              new Text(_list[index]["auteur"]==null?"Non définie" : _list[index]["auteur"],
+                              new Text(_filteredElements[index]["auteur"]==null?"Non définie" : _filteredElements[index]["auteur"],
                                   style: new TextStyle(fontSize: 16, color: Colors.white))
                             ],
                           ),
