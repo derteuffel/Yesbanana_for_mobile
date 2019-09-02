@@ -1,27 +1,27 @@
 
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/BibliothequeStudentWorkPage.dart';
+import 'package:mr_botton_navigation/Pages/BibliothequeSearchFacultyPage.dart';
 import 'package:mr_botton_navigation/Const.dart';
-
-import 'HttpRequest.dart';
+import 'package:mr_botton_navigation/HttpRequest.dart';
 
 var _list=[];
-class BibliothequeStudentWorkPageState extends State<BibliothequeStudentWorkPage>{
+class BibliothequeSearchFacultyPageState extends State<BibliothequeSearchFacultyPage>{
   int index = 0;
-  final _studentWorkUrl = Const.SERVER_URL_STUDENT_WORK;
-
+  final _thesesUrl=Const.SERVER_URL_THESES;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: Text('Travaux Etudiants'),
+        title: Text('Rechercher un livre par faculté'),
       ),
-      body: BibliothequeStudentWorkBody(),
+      body: BibliothequeSearchFacultyBody(),
     );
   }
+
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class BibliothequeStudentWorkPageState extends State<BibliothequeStudentWorkPage
   }
 
   void init() {
-    HttpRequest.getJson(_studentWorkUrl)
+    HttpRequest.getJson(_thesesUrl)
         .then((response) {
       print("Getting bourses");
       print(response.body);
@@ -47,14 +47,29 @@ class BibliothequeStudentWorkPageState extends State<BibliothequeStudentWorkPage
   }
 
 
-
 }
 //This represents the Body. We show GridView in Body
-class BibliothequeStudentWorkBody extends StatelessWidget {
+class BibliothequeSearchFacultyBody extends StatelessWidget {
 
   //Create and Return GridView filled with our data
   Widget createGridView(BuildContext context) {
-    var spacecrafts = ["Premier Document","Deuxieme document","Troisieme document","Quatrieme document"];
+    var spacecrafts = [
+      "James Web",
+      "Enterprise",
+      "Hubble",
+      "Kepler",
+      "Juno",
+      "Casini",
+      "Columbia",
+      "Challenger",
+      "Huygens",
+      "Galileo",
+      "Apollo",
+      "Spitzer",
+      "WMAP",
+      "Swift",
+      "Atlantis"
+    ];
     return new ListView.builder(
         itemCount: _list.length,
         itemBuilder: (BuildContext context, int index) {
@@ -66,28 +81,28 @@ class BibliothequeStudentWorkBody extends StatelessWidget {
                   Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
-                        child: Text(_list[index]["studentName"]==null?"Non définie" : _list[index]["studentName"],
+                        child: Text(_list[index]["student"]==null?"Non définie" : _list[index]["student"],
                           style: TextStyle(fontSize: 22.0,fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(padding: const EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 12.0),
-                      child: Text(_list[index]["date"]==null?"Non définie" : _list[index]["date"],
-                      style: TextStyle(fontSize: 18.0),
+                        child: Text(_list[index]["subject"]==null?"Non définie" : _list[index]["subject"],
+                          style: TextStyle(fontSize: 18.0),
                         ),
                       ),
                     ],
                   ),
                   Padding(padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text("Ouvrir",
-                      style: TextStyle(color: Colors.grey),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text("theseDate",
+                          style: TextStyle(color: Colors.grey),
                         ),
-                      Padding(padding: const EdgeInsets.all(8.0),
-                        child: Icon(Icons.chevron_right,
-                        size: 35.0,
-                        color: Colors.grey,
+                        Padding(padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.chevron_right,
+                            size: 35.0,
+                            color: Colors.grey,
                           ),
                         ),
                       ],
@@ -103,6 +118,7 @@ class BibliothequeStudentWorkBody extends StatelessWidget {
           );
         }
     );
+
   }
 
   @override

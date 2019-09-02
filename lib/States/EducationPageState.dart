@@ -1,36 +1,28 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/BibliothequeSearchFacultyPage.dart';
-import 'package:mr_botton_navigation/BibliothequeSearchLivrePage.dart';
-import 'package:mr_botton_navigation/BibliothequeStudentWorkPage.dart';
-import 'package:mr_botton_navigation/BibliothequeSyllabusPage.dart';
-import 'package:mr_botton_navigation/Bibliothequepage.dart';
+import 'package:mr_botton_navigation/Pages/EducationPrimairePage.dart';
+import 'package:mr_botton_navigation/Pages/EducationSecondairePage.dart';
+import 'package:mr_botton_navigation/Pages/Educationpage.dart';
 
-class BibliothequepageState extends State<Bibliothequepage>{
+class EducationpageState extends State<Educationpage>{
   int index = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BibliothequeBody(),
+      body: EducationBody(),
     );
   }
+
 }
 
 //This represents the Body. We show GridView in Body
-class BibliothequeBody extends StatelessWidget {
-BibliothequeBody({this.index,this.callback});
-  final int index;
-  final Function(int) callback;
-    int itemId;
+class EducationBody extends StatelessWidget {
 
-
-//Create and Return GridView filled with our data
+  //Create and Return GridView filled with our data
   Widget createGridView(BuildContext context) {
-    var spacecrafts = ["Recherche un Livre","Rechercher un sujet","Syllabus","Travaux des étudiants"];
-    var number=[1,2,3,4];
-
+    var spacecrafts = ["Education primaire","Education secondaire"];
     return new GridView.builder(
         itemCount: spacecrafts.length,
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
@@ -41,7 +33,7 @@ BibliothequeBody({this.index,this.callback});
               alignment: Alignment.center,
               children: <Widget>[
                 Positioned(
-                  top: 10,
+                  top: 30,
                   child: Card(
                     elevation: 12,
                     color: Colors.cyan,
@@ -53,7 +45,7 @@ BibliothequeBody({this.index,this.callback});
                       padding: new EdgeInsets.fromLTRB(1.0, 40, 1.0, 45),
                       child: ListTile(title: Text(spacecrafts[index],
                         style: TextStyle(fontSize: 12.0, color: Colors.white,
-                      ),
+                        ),
                         textAlign: TextAlign.center,
                       ),
                         onTap: (){
@@ -63,13 +55,9 @@ BibliothequeBody({this.index,this.callback});
                             print("je suis la");
                             print(index);
                             if(index==0)
-                              return new BibliothequeSearchLivrePage(context);
-                            else if(index==1)
-                              return new BibliothequeSearchFacultyPage(context);
-                            else if(index==2)
-                              return new BibliothequeSyllabusPage(context);
+                              return new EducationPrimairePage(context);
                             else
-                              return new BibliothequeStudentWorkPage(context);
+                              return new EducationSecondairePage(context);
                           }));
                         },
                       ),
@@ -79,10 +67,9 @@ BibliothequeBody({this.index,this.callback});
               ],
             ),
           );
-        },
-      );
-    }
-
+        }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,5 +80,6 @@ BibliothequeBody({this.index,this.callback});
     );
   }
 }
+
 
 

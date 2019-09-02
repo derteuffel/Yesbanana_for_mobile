@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/Bibliothequepage.dart';
-import 'package:mr_botton_navigation/Boursepage.dart';
-import 'package:mr_botton_navigation/ColoniePage.dart';
-import 'package:mr_botton_navigation/Homepage.dart';
-import 'package:mr_botton_navigation/Educationpage.dart';
+import 'package:mr_botton_navigation/Pages/Bibliothequepage.dart';
+import 'package:mr_botton_navigation/Pages/Boursepage.dart';
+import 'package:mr_botton_navigation/Pages/ColoniePage.dart';
+import 'package:mr_botton_navigation/Pages/Homepage.dart';
+import 'package:mr_botton_navigation/Pages/Educationpage.dart';
 import 'package:mr_botton_navigation/main.dart';
 
 

@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/EducationPrimairePage.dart';
+import 'package:mr_botton_navigation/Pages/EducationPrimairePage.dart';
 
 class EducationPrimairePageState extends State<EducationPrimairePage>{
   int index = 0;

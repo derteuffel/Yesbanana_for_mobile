@@ -1,27 +1,25 @@
 
+
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/BibliothequeSearchFacultyPage.dart';
+import 'package:mr_botton_navigation/Pages/Boursepage.dart';
 import 'package:mr_botton_navigation/Const.dart';
 import 'package:mr_botton_navigation/HttpRequest.dart';
+import 'package:mr_botton_navigation/main.dart';
 
 var _list=[];
-class BibliothequeSearchFacultyPageState extends State<BibliothequeSearchFacultyPage>{
+class BoursePageState extends State<Boursepage>{
   int index = 0;
-  final _thesesUrl=Const.SERVER_URL_THESES;
+  final _bourseUrl = Const.SERVER_URL_BOURSE;
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: Text('Rechercher un livre par faculté'),
-      ),
-      body: BibliothequeSearchFacultyBody(),
+      body: BourseBody(),
     );
   }
-
 
   @override
   void initState() {
@@ -31,7 +29,7 @@ class BibliothequeSearchFacultyPageState extends State<BibliothequeSearchFaculty
   }
 
   void init() {
-    HttpRequest.getJson(_thesesUrl)
+    HttpRequest.getJson(_bourseUrl)
         .then((response) {
       print("Getting bourses");
       print(response.body);
@@ -45,31 +43,13 @@ class BibliothequeSearchFacultyPageState extends State<BibliothequeSearchFaculty
 
     });
   }
-
-
 }
+
 //This represents the Body. We show GridView in Body
-class BibliothequeSearchFacultyBody extends StatelessWidget {
+class BourseBody extends StatelessWidget {
 
   //Create and Return GridView filled with our data
   Widget createGridView(BuildContext context) {
-    var spacecrafts = [
-      "James Web",
-      "Enterprise",
-      "Hubble",
-      "Kepler",
-      "Juno",
-      "Casini",
-      "Columbia",
-      "Challenger",
-      "Huygens",
-      "Galileo",
-      "Apollo",
-      "Spitzer",
-      "WMAP",
-      "Swift",
-      "Atlantis"
-    ];
     return new ListView.builder(
         itemCount: _list.length,
         itemBuilder: (BuildContext context, int index) {
@@ -81,12 +61,12 @@ class BibliothequeSearchFacultyBody extends StatelessWidget {
                   Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
-                        child: Text(_list[index]["student"]==null?"Non définie" : _list[index]["student"],
+                        child:new  Text(_list[index]["title"]==null?"Sans titre" : _list[index]["title"],
                           style: TextStyle(fontSize: 22.0,fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(padding: const EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 12.0),
-                        child: Text(_list[index]["subject"]==null?"Non définie" : _list[index]["subject"],
+                        child:new Text(_list[index]["link"],
                           style: TextStyle(fontSize: 18.0),
                         ),
                       ),
@@ -96,7 +76,7 @@ class BibliothequeSearchFacultyBody extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text("theseDate",
+                        new Text("Ouvrir",
                           style: TextStyle(color: Colors.grey),
                         ),
                         Padding(padding: const EdgeInsets.all(8.0),
@@ -119,6 +99,7 @@ class BibliothequeSearchFacultyBody extends StatelessWidget {
         }
     );
 
+
   }
 
   @override
@@ -128,5 +109,8 @@ class BibliothequeSearchFacultyBody extends StatelessWidget {
         child: createGridView(context),
       ),
     );
+
   }
+
+
 }

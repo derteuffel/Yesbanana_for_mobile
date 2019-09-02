@@ -1,28 +1,36 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/EducationPrimairePage.dart';
-import 'package:mr_botton_navigation/EducationSecondairePage.dart';
-import 'package:mr_botton_navigation/Educationpage.dart';
+import 'package:mr_botton_navigation/Pages/BibliothequeSearchFacultyPage.dart';
+import 'package:mr_botton_navigation/Pages/BibliothequeSearchLivrePage.dart';
+import 'package:mr_botton_navigation/Pages/BibliothequeStudentWorkPage.dart';
+import 'package:mr_botton_navigation/Pages/BibliothequeSyllabusPage.dart';
+import 'package:mr_botton_navigation/Pages/Bibliothequepage.dart';
 
-class EducationpageState extends State<Educationpage>{
+class BibliothequepageState extends State<Bibliothequepage>{
   int index = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: EducationBody(),
+      body: BibliothequeBody(),
     );
   }
-
 }
 
 //This represents the Body. We show GridView in Body
-class EducationBody extends StatelessWidget {
+class BibliothequeBody extends StatelessWidget {
+BibliothequeBody({this.index,this.callback});
+  final int index;
+  final Function(int) callback;
+    int itemId;
 
-  //Create and Return GridView filled with our data
+
+//Create and Return GridView filled with our data
   Widget createGridView(BuildContext context) {
-    var spacecrafts = ["Education primaire","Education secondaire"];
+    var spacecrafts = ["Recherche un Livre","Rechercher un sujet","Syllabus","Travaux des étudiants"];
+    var number=[1,2,3,4];
+
     return new GridView.builder(
         itemCount: spacecrafts.length,
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
@@ -33,7 +41,7 @@ class EducationBody extends StatelessWidget {
               alignment: Alignment.center,
               children: <Widget>[
                 Positioned(
-                  top: 30,
+                  top: 10,
                   child: Card(
                     elevation: 12,
                     color: Colors.cyan,
@@ -45,7 +53,7 @@ class EducationBody extends StatelessWidget {
                       padding: new EdgeInsets.fromLTRB(1.0, 40, 1.0, 45),
                       child: ListTile(title: Text(spacecrafts[index],
                         style: TextStyle(fontSize: 12.0, color: Colors.white,
-                        ),
+                      ),
                         textAlign: TextAlign.center,
                       ),
                         onTap: (){
@@ -55,9 +63,13 @@ class EducationBody extends StatelessWidget {
                             print("je suis la");
                             print(index);
                             if(index==0)
-                              return new EducationPrimairePage(context);
+                              return new BibliothequeSearchLivrePage(context);
+                            else if(index==1)
+                              return new BibliothequeSearchFacultyPage(context);
+                            else if(index==2)
+                              return new BibliothequeSyllabusPage(context);
                             else
-                              return new EducationSecondairePage(context);
+                              return new BibliothequeStudentWorkPage(context);
                           }));
                         },
                       ),
@@ -67,9 +79,10 @@ class EducationBody extends StatelessWidget {
               ],
             ),
           );
-        }
-    );
-  }
+        },
+      );
+    }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +93,5 @@ class EducationBody extends StatelessWidget {
     );
   }
 }
-
 
 

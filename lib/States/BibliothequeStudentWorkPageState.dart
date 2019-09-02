@@ -1,23 +1,25 @@
 
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/Boursepage.dart';
+import 'package:mr_botton_navigation/Pages/BibliothequeStudentWorkPage.dart';
 import 'package:mr_botton_navigation/Const.dart';
-import 'package:mr_botton_navigation/HttpRequest.dart';
-import 'package:mr_botton_navigation/main.dart';
+
+import 'HttpRequest.dart';
 
 var _list=[];
-class BoursePageState extends State<Boursepage>{
+class BibliothequeStudentWorkPageState extends State<BibliothequeStudentWorkPage>{
   int index = 0;
-  final _bourseUrl = Const.SERVER_URL_BOURSE;
+  final _studentWorkUrl = Const.SERVER_URL_STUDENT_WORK;
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BourseBody(),
+      appBar: new AppBar(
+        title: Text('Travaux Etudiants'),
+      ),
+      body: BibliothequeStudentWorkBody(),
     );
   }
 
@@ -29,7 +31,7 @@ class BoursePageState extends State<Boursepage>{
   }
 
   void init() {
-    HttpRequest.getJson(_bourseUrl)
+    HttpRequest.getJson(_studentWorkUrl)
         .then((response) {
       print("Getting bourses");
       print(response.body);
@@ -43,13 +45,16 @@ class BoursePageState extends State<Boursepage>{
 
     });
   }
-}
 
+
+
+}
 //This represents the Body. We show GridView in Body
-class BourseBody extends StatelessWidget {
+class BibliothequeStudentWorkBody extends StatelessWidget {
 
   //Create and Return GridView filled with our data
   Widget createGridView(BuildContext context) {
+    var spacecrafts = ["Premier Document","Deuxieme document","Troisieme document","Quatrieme document"];
     return new ListView.builder(
         itemCount: _list.length,
         itemBuilder: (BuildContext context, int index) {
@@ -61,28 +66,28 @@ class BourseBody extends StatelessWidget {
                   Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
-                        child:new  Text(_list[index]["title"]==null?"Sans titre" : _list[index]["title"],
+                        child: Text(_list[index]["studentName"]==null?"Non définie" : _list[index]["studentName"],
                           style: TextStyle(fontSize: 22.0,fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(padding: const EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 12.0),
-                        child:new Text(_list[index]["link"],
-                          style: TextStyle(fontSize: 18.0),
+                      child: Text(_list[index]["date"]==null?"Non définie" : _list[index]["date"],
+                      style: TextStyle(fontSize: 18.0),
                         ),
                       ),
                     ],
                   ),
                   Padding(padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        new Text("Ouvrir",
-                          style: TextStyle(color: Colors.grey),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text("Ouvrir",
+                      style: TextStyle(color: Colors.grey),
                         ),
-                        Padding(padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.chevron_right,
-                            size: 35.0,
-                            color: Colors.grey,
+                      Padding(padding: const EdgeInsets.all(8.0),
+                        child: Icon(Icons.chevron_right,
+                        size: 35.0,
+                        color: Colors.grey,
                           ),
                         ),
                       ],
@@ -98,8 +103,6 @@ class BourseBody extends StatelessWidget {
           );
         }
     );
-
-
   }
 
   @override
@@ -109,8 +112,5 @@ class BourseBody extends StatelessWidget {
         child: createGridView(context),
       ),
     );
-
   }
-
-
 }

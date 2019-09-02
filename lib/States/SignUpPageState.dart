@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mr_botton_navigation/Const.dart';
 import 'package:mr_botton_navigation/HttpRequest.dart';
-import 'package:mr_botton_navigation/LoginPage.dart';
-import 'package:mr_botton_navigation/SignUpPage.dart';
+import 'package:mr_botton_navigation/Pages/LoginPage.dart';
+import 'package:mr_botton_navigation/Pages/SignUpPage.dart';
 import 'package:mr_botton_navigation/Useful.dart';
 
 class SignUpPageState extends State<SignUpPage>{
