@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mr_botton_navigation/Pages/BibliothequeStudentWorkPage.dart';
 import 'package:mr_botton_navigation/Const.dart';
 
-import 'HttpRequest.dart';
+import '../HttpRequest.dart';
 
 var _list=[];
 class BibliothequeStudentWorkPageState extends State<BibliothequeStudentWorkPage>{

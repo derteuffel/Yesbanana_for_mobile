@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/Homepage.dart';
+import 'package:mr_botton_navigation/Pages/Homepage.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:mr_botton_navigation/LoginPage.dart';
+import 'package:mr_botton_navigation/Pages/LoginPage.dart';
 
 
 

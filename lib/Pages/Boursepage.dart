@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/BoursePageState.dart';
+import 'package:mr_botton_navigation/States/BoursePageState.dart';
 
 class Boursepage extends StatefulWidget{
   final BuildContext context;

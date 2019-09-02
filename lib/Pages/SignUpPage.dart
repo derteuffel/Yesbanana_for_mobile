@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/SignUpPageState.dart';
+import 'package:mr_botton_navigation/States/SignUpPageState.dart';
 
 class SignUpPage extends StatefulWidget{
   final BuildContext context;

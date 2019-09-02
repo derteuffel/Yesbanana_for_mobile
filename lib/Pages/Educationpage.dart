@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/EducationPageState.dart';
+import 'package:mr_botton_navigation/States/EducationPageState.dart';
 
 class Educationpage extends StatefulWidget{
 

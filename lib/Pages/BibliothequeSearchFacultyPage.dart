@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/BibliothequeSearchFacultyPageState.dart';
+import 'package:mr_botton_navigation/States/BibliothequeSearchFacultyPageState.dart';
 
 class BibliothequeSearchFacultyPage extends StatefulWidget{
   final BuildContext context;

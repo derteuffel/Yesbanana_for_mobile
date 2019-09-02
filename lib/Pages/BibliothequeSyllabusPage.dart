@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:mr_botton_navigation/BibliothequeSyllabusPageState.dart';
+import 'package:mr_botton_navigation/States/BibliothequeSyllabusPageState.dart';
 
 class BibliothequeSyllabusPage extends StatefulWidget{
   final BuildContext context;
